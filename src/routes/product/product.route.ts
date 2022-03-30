@@ -18,9 +18,9 @@ router.get('/:id', function (req, res) {
   let id =req.params.id;
   let product = productService.getProductById(parseInt(id))
   if(product){
-    res.send(product)
+    return res.status(200).json(product)
   }
-  res.send(`No records found with given id : ${id}`)
+  return res.status(404).json({errorMessage:`No records found with given id : ${id}`});
 })
 
 /**
@@ -31,9 +31,9 @@ router.post('/', async function (req, res) {
     await productSchema.validateAsync(req.body)
     let product =req.body;
     let products = productService.insertProduct(product);
-    res.send(products)
+    return res.status(201).json(products)
     } catch(err) {
-    res.send(err)
+    return res.status(404).json({errorMessage:err.message})
   }
 })
 
@@ -45,14 +45,16 @@ router.put('/:id', async function (req, res) {
   try {
     await productSchema.validateAsync(req.body)
     let updatedProduct =req.body;
-    let product = productService.updatedProduct(parseInt(id),updatedProduct)
+    let product = productService.updateProduct(parseInt(id),updatedProduct)
     if(product){
-      res.send(product)
+      return res.status(200).json(product);
+    }
+    else{
+      return res.status(404).json({errorMessage:`No records found with given id : ${id}`})
     }
   } catch(err) {
-    res.send(err)
+    return res.status(404).json({errorMessage:err});
   }
-  res.send(`No records found with given id : ${id}`)
 })
 
 /**
@@ -62,9 +64,9 @@ router.delete('/:id', function (req, res) {
   let id =req.params.id;
   let index = productService.deleteProduct(parseInt(id))
   if(index>=0){
-    res.send({});
+    return res.status(202).json({});
   }
-  res.send(`No records found with given id : ${id}`)
+  return res.status(404).json({errorMessage:`No records found with given id : ${id}`})
 })
 
 export default router

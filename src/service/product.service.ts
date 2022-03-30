@@ -26,7 +26,7 @@ function getAllProducts(){
  * @returns product
  */
 function insertProduct(product:Product){
-    product.id=products[products.length-1]?.id||1;
+    product.id=(products[products.length-1]?.id+1)||1;
     products.push(product);
     return product;
 }
@@ -39,7 +39,7 @@ function insertProduct(product:Product){
  */
 function updateProduct(id:number, updatedProduct:Product){
     let index = products.findIndex(product=> product.id===id)
-    products[index] = updatedProduct;
+    products[index] = {id,...updatedProduct};
     return updatedProduct;
 }
 
@@ -50,10 +50,8 @@ function updateProduct(id:number, updatedProduct:Product){
  */
 function deleteProduct(id:number){
     let index = products.findIndex(product=> product.id===id);
-    console.log(index);
     if(index>=0){
         products.splice(index,1);
-        console.log(products)
     }
     return index;
 }
