@@ -1,0 +1,20 @@
+[
+    {
+        "id": 1,
+        "name": "Car",
+        "description": "Honda Accord",
+        "price": 400.00
+    },
+    {
+        "id": 2,
+        "name": "Computer",
+        "description": "Dell Inspiron",
+        "price": 100.00
+    },
+    {
+        "id": 3,
+        "name": "Phone",
+        "description": "Iphone SE",
+        "price": 100.00
+    }
+]
